@@ -1,0 +1,46 @@
+@import "../../App.css";
+
+.header {
+  background-color: var(--main-hdr-color);
+  height: 3rem;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-nav {
+  padding: 0.1rem 0;
+  line-height: normal;
+  position: relative;
+}
+
+.header-nav-button {
+  padding: 0 0.4rem;
+  color: #fafafa;
+}
+
+.header-nav-dropdown {
+  position: absolute;
+  background-color: var(--main-cont-color);
+  visibility: hidden;
+  margin: 6px 0 0 0;
+  /* right: 0px; */
+  width: 250px;
+  height: 250px;
+  border: 0.5px solid var(--main-hdr-color);
+  z-index: 99;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header-nav-dropdown.active {
+  visibility: visible;
+}
+
+.header-nav-dropdown:before {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: -5px;
+  width: 32px;
+  border-top: 5px solid var(--main-cont-color);
+}

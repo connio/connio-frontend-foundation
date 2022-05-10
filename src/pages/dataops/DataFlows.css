@@ -1,0 +1,20 @@
+/* .data-flow-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+} */
+
+.data-flow-tabs {
+  /* background-color: yellow; */
+  /* width: 100%;
+  height: 100%; */
+}
+
+.data-flow-tabpane {
+  /* margin: -12px 0 0 0; */
+  /* background-color: rgb(21, 12, 12); */
+  /* display: flex; */
+  /* background-color: #00ffff; */
+  /* height: 100%; */
+}
