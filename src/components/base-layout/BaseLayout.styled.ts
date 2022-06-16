@@ -8,6 +8,7 @@ export const Styled = styled.div`
 
   & > .middle {
     flex-grow: 1;
+    overflow: hidden;
     display: flex;
     flex-direction: row;
     & > .left-sider {

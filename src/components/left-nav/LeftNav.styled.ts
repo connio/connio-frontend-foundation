@@ -7,7 +7,7 @@ export const Styled = styled.div`
     3px 0px 5px -1px rgba(0, 0, 0, 0.5);
   padding: 16px 5px;
   box-sizing: border-box;
-  height: calc(100% - 34px);
+  height: 100%;
   width: 200px;
   display: flex;
   flex-direction: row;
