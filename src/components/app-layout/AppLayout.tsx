@@ -10,6 +10,7 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import getModule from '../../helpers/getModule'
 import Icon from '@mui/material/Icon'
+import Link from '@mui/material/Link'
 const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
   children,
   moduleId,
@@ -23,20 +24,22 @@ const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
       <Page>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h5" component="h5">
-              {module.title}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
             <Breadcrumb>
               {module?.ancestors?.map((_module, index) => (
                 <BreadcrumbItem key={_module.id}>
-                  {_module.title}{' '}
-                  {(module?.ancestors?.length || 0) - 1 > index ? ' /' : ''}
+                  <Link href="#" underline="hover" color="inherit">
+                    {_module.title}
+                  </Link>
                 </BreadcrumbItem>
               ))}
             </Breadcrumb>
           </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5" component="h5">
+              {module.title}
+            </Typography>
+          </Grid>
+
           <Grid item xs={12}>
             {children}
           </Grid>
