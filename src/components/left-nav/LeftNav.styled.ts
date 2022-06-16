@@ -17,16 +17,19 @@ export const Styled = styled.div`
   max-width: 400px;
   z-index: 2;
   position: relative;
+  transition: width 200ms ease-out;
+
   &.collapsed-left-nav {
     transition: width 0.2s ease-out;
     transition-delay: 300ms;
     position: absolute;
     width: 15px !important;
+    height: calc(100% - 64px);
   }
   &.collapsed-left-nav:hover {
     position: absolute;
     width: 250px !important;
-    transition-delay: 1000ms;
+    transition-delay: 500ms;
   }
   .app-sidebar-content {
     display: flex;

@@ -13,9 +13,10 @@ const buttonSx = {
   paddingLeft: '20px',
   marginY: '2px',
 }
+const collapsedSize = 15
 const LeftNav = () => {
   const layoutSettings = useLayoutSettings()
-
+  const isCollapsed = layoutSettings.sidebarWidth === collapsedSize
   const sidebarRef = useRef<any>(null)
   const [isResizing, setIsResizing] = useState(false)
 
@@ -28,13 +29,16 @@ const LeftNav = () => {
   }, [])
 
   const restoreResizing = useCallback(() => {
-    if (layoutSettings.sidebarWidth === 15) layoutSettings.setSidebarWidth(250)
+    if (layoutSettings.sidebarWidth === collapsedSize)
+      layoutSettings.setSidebarWidth(250)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layoutSettings.sidebarWidth])
 
   const toggleResizing = useCallback(() => {
-    if (layoutSettings.sidebarWidth === 15) layoutSettings.setSidebarWidth(250)
-    else layoutSettings.setSidebarWidth(15)
+    if (layoutSettings.sidebarWidth === collapsedSize)
+      layoutSettings.setSidebarWidth(250)
+    else layoutSettings.setSidebarWidth(collapsedSize + 1)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layoutSettings.sidebarWidth])
 
@@ -45,7 +49,7 @@ const LeftNav = () => {
           mouseMoveEvent.clientX -
           sidebarRef.current.getBoundingClientRect().left
         if (newWidth < 70) {
-          layoutSettings.setSidebarWidth(15)
+          layoutSettings.setSidebarWidth(collapsedSize)
         } else {
           layoutSettings.setSidebarWidth(newWidth)
         }
@@ -64,6 +68,11 @@ const LeftNav = () => {
     }
   }, [resize, stopResizing])
 
+  useEffect(() => {
+    if (layoutSettings.sidebarWidth === 16) {
+      setTimeout(() => layoutSettings.setSidebarWidth(collapsedSize), 200)
+    }
+  }, [layoutSettings])
   const module = getModule(layoutSettings.currentModule)
   return module.subitems?.length ? (
     <Styled
@@ -101,16 +110,16 @@ const LeftNav = () => {
         </div>
       </div>
 
-      <div
+      {!isCollapsed && <div
         className="app-sidebar-resizer"
         onMouseDown={startResizing}
         onClick={restoreResizing}
-      />
+      />}
       <div className="app-sidebar-toggle" onClick={toggleResizing}>
         <Fab size="small" color="primary" aria-label="add">
           <Icon
             children={
-              layoutSettings.sidebarWidth === 15
+              isCollapsed
                 ? 'chevron_right'
                 : 'chevron_left'
             }
