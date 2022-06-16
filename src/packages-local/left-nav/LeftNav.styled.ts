@@ -34,7 +34,7 @@ export const Styled = styled.div`
       flex-direction: column;
       flex: 1;
       padding: 16px;
-      min-width: 150px;
+      min-width: 200px;
     }
   }
   .app-sidebar-toggle {
