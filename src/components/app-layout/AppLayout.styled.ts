@@ -10,7 +10,6 @@ export const Breadcrumb = styled.div`
   align-items: center;
 `
 
-
 export const BreadcrumbItem = styled.span`
- margin-right: 5px;
+  margin-right: 5px;
 `

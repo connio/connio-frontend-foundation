@@ -37,7 +37,7 @@ const AppsBarButton: React.FC<AppsBarButtonProps> = ({
       <Button
         sx={buttonSx}
         variant={
-          layoutSettings.currentModule === moduleId ? 'outlined' : 'text'
+          layoutSettings.currentModule === moduleId ? 'outlined' : 'text' // TODO:Router bağlandıktan sonra routerden alınacak.
         }
         startIcon={
           <Icon sx={{ marginRight: isCollapsed ? '0px' : '20px' }}>{icon}</Icon>

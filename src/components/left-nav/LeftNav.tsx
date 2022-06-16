@@ -78,15 +78,26 @@ const LeftNav = () => {
     >
       <div className="app-sidebar-content">
         <div className="overflow-wrapper">
-          {module.subitems.map((menu) => (
-            <Button
-              key={`${module.id}.${menu.id}`}
-              sx={buttonSx}
-              startIcon={<Icon sx={{ marginRight: '12px' }}>{menu.icon}</Icon>}
-            >
-              {menu.title}
-            </Button>
-          ))}
+          {module.subitems.map((menu) => {
+            //const menuModule = getModule([module.id, menu.id].join('.'))
+            const modulePath = [module.id, menu.id].join('.')
+            return (
+              <Button
+                variant={
+                  window.location.hash.includes(modulePath) //TODO: router bağlandıktan sonra router ile kontrol edilecek
+                    ? 'outlined'
+                    : 'text'
+                }
+                href={`#${modulePath}`}
+                sx={buttonSx}
+                startIcon={
+                  <Icon sx={{ marginRight: '12px' }}>{menu.icon}</Icon>
+                }
+              >
+                {menu.title}
+              </Button>
+            )
+          })}
         </div>
       </div>
 

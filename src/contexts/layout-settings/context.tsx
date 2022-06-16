@@ -6,16 +6,16 @@ import useBoolean, {
 interface LayoutSettingsValue {
   provided: boolean
   isCollapsed: UseBooleanReturnType
-  currentModule: string
-  setCurrentModule: (value: string) => void
+  currentModule: string //TODO:router bağlandıktan sonra gerek kalmıyor
+  setCurrentModule: (value: string) => void //TODO:router bağlandıktan sonra gerek kalmıyor
   sidebarWidth: number
   setSidebarWidth: (value: number) => void
 }
 const initialValue: LayoutSettingsValue = {
   provided: false,
   isCollapsed: { value: false } as UseBooleanReturnType,
-  currentModule: 'home',
-  setCurrentModule: () => {},
+  currentModule: 'home', //TODO:router bağlandıktan sonra gerek kalmıyor
+  setCurrentModule: () => {}, //TODO:router bağlandıktan sonra gerek kalmıyor
   sidebarWidth: 250,
   setSidebarWidth: () => {},
 }
@@ -28,7 +28,7 @@ export const LayoutSettingsProvider = ({
   children: React.ReactNode
 }) => {
   const isCollapsed = useBoolean(true)
-  const [currentModule, setCurrentModule] = useState(initialValue.currentModule)
+  const [currentModule, setCurrentModule] = useState(initialValue.currentModule) //TODO:router bağlandıktan sonra gerek kalmıyor
   const [sidebarWidth, setSidebarWidth] = useState(250)
 
   return (
@@ -36,8 +36,8 @@ export const LayoutSettingsProvider = ({
       value={{
         provided: true,
         isCollapsed,
-        currentModule,
-        setCurrentModule,
+        currentModule, //TODO:router bağlandıktan sonra gerek kalmıyor
+        setCurrentModule, //TODO:router bağlandıktan sonra gerek kalmıyor
         sidebarWidth,
         setSidebarWidth,
       }}
