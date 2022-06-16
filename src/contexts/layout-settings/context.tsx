@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import useBoolean, {
   UseBooleanReturnType,
-} from '../../packages-local/hooks/useBoolean'
+} from '../../components/hooks/useBoolean'
 
 interface LayoutSettingsValue {
   provided: boolean

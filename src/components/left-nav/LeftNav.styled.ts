@@ -5,24 +5,27 @@ export const Styled = styled.div`
   color: ${blueGrey[50]};
   box-shadow: inset 3px 0px 5px -1px rgba(0, 0, 0, 0.5),
     3px 0px 5px -1px rgba(0, 0, 0, 0.5);
-
+  padding: 16px 5px;
+  box-sizing: border-box;
+  height: calc(100% - 34px);
   width: 200px;
   display: flex;
   flex-direction: row;
   flex-grow: 0;
   flex-shrink: 0;
   min-width: 10px;
-  max-width: 300px;
+  max-width: 400px;
   z-index: 2;
   position: relative;
   &.collapsed-left-nav {
     transition: width 0.2s ease-out;
     transition-delay: 300ms;
+    position: absolute;
+    width: 15px !important;
   }
   &.collapsed-left-nav:hover {
     position: absolute;
     width: 250px !important;
-    height: 100%;
     transition-delay: 1000ms;
   }
   .app-sidebar-content {
@@ -33,7 +36,6 @@ export const Styled = styled.div`
       display: flex;
       flex-direction: column;
       flex: 1;
-      padding: 16px;
       min-width: 200px;
     }
   }

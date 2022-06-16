@@ -9,9 +9,14 @@ export const Styled = styled.div`
     display: flex;
     align-items: center;
     flex-direction: row;
+    justify-content: space-between;
     box-shadow: inset 3px 0px 5px -1px rgba(0, 0, 0, 0.5), 3px 0px 5px -1px rgba(0, 0, 0, 0.5);
-    .module-name {
+    .right-controls {
       
+    }
+    .left-controls {
+      display: flex;
+      flex-direction: row;
     }
   }
 `

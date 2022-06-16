@@ -2,8 +2,9 @@ import Button from '@mui/material/Button'
 import Fab from '@mui/material/Fab'
 import Icon from '@mui/material/Icon'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { modules } from '../../constants/dummy'
+import { modules } from '../../constants/modules'
 import { useLayoutSettings } from '../../contexts/layout-settings/context'
+import getModule from '../../helpers/getModule'
 import { Styled } from './LeftNav.styled'
 
 const buttonSx = {
@@ -27,13 +28,13 @@ const LeftNav = () => {
   }, [])
 
   const restoreResizing = useCallback(() => {
-    if (layoutSettings.sidebarWidth === 20) layoutSettings.setSidebarWidth(250)
+    if (layoutSettings.sidebarWidth === 15) layoutSettings.setSidebarWidth(250)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layoutSettings.sidebarWidth])
 
   const toggleResizing = useCallback(() => {
-    if (layoutSettings.sidebarWidth === 20) layoutSettings.setSidebarWidth(250)
-    else layoutSettings.setSidebarWidth(20)
+    if (layoutSettings.sidebarWidth === 15) layoutSettings.setSidebarWidth(250)
+    else layoutSettings.setSidebarWidth(15)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layoutSettings.sidebarWidth])
 
@@ -44,7 +45,7 @@ const LeftNav = () => {
           mouseMoveEvent.clientX -
           sidebarRef.current.getBoundingClientRect().left
         if (newWidth < 70) {
-          layoutSettings.setSidebarWidth(20)
+          layoutSettings.setSidebarWidth(15)
         } else {
           layoutSettings.setSidebarWidth(newWidth)
         }
@@ -63,14 +64,14 @@ const LeftNav = () => {
     }
   }, [resize, stopResizing])
 
-  const module = modules[layoutSettings.currentModule]
+  const module = getModule(layoutSettings.currentModule)
   return module.subitems?.length ? (
     <Styled
       ref={sidebarRef}
       style={{ width: layoutSettings.sidebarWidth }}
       onMouseDown={(e) => e.preventDefault()}
       className={
-        layoutSettings.sidebarWidth === 20
+        layoutSettings.sidebarWidth === 15
           ? 'collapsed-left-nav'
           : 'regular-left-nav'
       }
@@ -79,6 +80,7 @@ const LeftNav = () => {
         <div className="overflow-wrapper">
           {module.subitems.map((menu) => (
             <Button
+              key={`${module.id}.${menu.id}`}
               sx={buttonSx}
               startIcon={<Icon sx={{ marginRight: '12px' }}>{menu.icon}</Icon>}
             >
@@ -94,7 +96,15 @@ const LeftNav = () => {
         onClick={restoreResizing}
       />
       <div className="app-sidebar-toggle" onClick={toggleResizing}>
-      <Fab size="small" color="primary" aria-label="add"><Icon>{layoutSettings.sidebarWidth===20 ? 'chevron_right' : 'chevron_left'}</Icon></Fab>
+        <Fab size="small" color="primary" aria-label="add">
+          <Icon
+            children={
+              layoutSettings.sidebarWidth === 15
+                ? 'chevron_right'
+                : 'chevron_left'
+            }
+          />
+        </Fab>
       </div>
     </Styled>
   ) : (

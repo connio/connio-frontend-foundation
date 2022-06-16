@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button'
+import Button, { ButtonProps } from '@mui/material/Button'
 import blueGrey from '@mui/material/colors/blueGrey'
 import Icon from '@mui/material/Icon'
 import Tooltip from '@mui/material/Tooltip'
@@ -23,6 +23,8 @@ const AppsBarButton: React.FC<AppsBarButtonProps> = ({
   icon,
   text,
   moduleId,
+  onClick,
+  ...buttonProps
 }) => {
   const layoutSettings = useLayoutSettings()
 
@@ -34,13 +36,17 @@ const AppsBarButton: React.FC<AppsBarButtonProps> = ({
     <Tooltip title={text} placement="right" disableHoverListener={!isCollapsed}>
       <Button
         sx={buttonSx}
-        variant="text"
+        variant={
+          layoutSettings.currentModule === moduleId ? 'outlined' : 'text'
+        }
         startIcon={
           <Icon sx={{ marginRight: isCollapsed ? '0px' : '20px' }}>{icon}</Icon>
         }
-        onClick={()=>{
+        onClick={(e) => {
+          onClick?.(e)
           layoutSettings.setCurrentModule(moduleId)
         }}
+        {...buttonProps}
       >
         {!isCollapsed && text}
       </Button>

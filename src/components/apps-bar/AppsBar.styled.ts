@@ -1,7 +1,7 @@
 import { blueGrey } from '@mui/material/colors'
 import styled from 'styled-components'
 export const Styled = styled.div`
-  padding: 8px;
+  padding: 8px 4px;
   background-color: ${blueGrey[900]};
   color: ${blueGrey[50]};
   flex-grow: 1;
@@ -12,7 +12,7 @@ export const Styled = styled.div`
   .logo-area {
     display: flex;
     justify-content: space-between;
-  padding-left: 14px;
+    padding-left: 14px;
     flex-direction: row;
     .logo{
       padding-top:3px;
@@ -22,10 +22,6 @@ export const Styled = styled.div`
     .collapse-icon {
       align-self: flex-end;
     }
-  }
-  .apps-bar-btn {
-    width: 50px;
-    height: 50px;
   }
   .buttons {
     display: flex;

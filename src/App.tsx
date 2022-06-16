@@ -1,9 +1,10 @@
 import React from 'react'
-import { AppLayout } from './packages-local/app-layout'
+import { AppLayout } from './components/app-layout'
 import { ThemeProvider } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import { lightTheme } from './constants/theme'
 import { LayoutSettingsProvider } from './contexts/layout-settings/context'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -15,9 +16,7 @@ function App() {
             color: 'text.primary',
           }}
         >
-          <div className="App">
-            <AppLayout></AppLayout>
-          </div>
+            <Home />
         </Box>
       </LayoutSettingsProvider>
     </ThemeProvider>
