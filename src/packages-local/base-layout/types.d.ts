@@ -7,4 +7,6 @@ export interface BaseLayoutProps {
     rightSider?: React.ReactNode
     leftNav?: React.ReactNode
     rightNav?: React.ReactNode
+    header?: React.ReactNode
+    footer?: React.ReactNode
 }

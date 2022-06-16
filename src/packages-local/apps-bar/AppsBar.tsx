@@ -1,85 +1,73 @@
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Icon from '@mui/material/Icon'
 import IconButton from '@mui/material/IconButton'
-import React from 'react'
-import useBoolean from '../hooks/useBoolean'
 import { Styled } from './AppsBar.styled'
-
-//dummy
-const apps = [
-  {
-    title: 'Connection Hubs',
-    icon: 'hub',
-  },
-  {
-    title: 'Apps',
-    icon: 'apps',
-  },
-  {
-    title: 'Assets',
-    icon: 'desktop_windows',
-  },
-  {
-    title: 'System Insight',
-    icon: 'insights',
-  },
-  {
-    title: 'DataOps',
-    icon: 'layers',
-  },
-  {
-    title: 'Asset Designer',
-    icon: 'design_services',
-  },
-]
-const buttonCommonSx = { height: '50px', paddingLeft: '26px', marginY: '2px' }
-const buttonCollapsedSx = { justifyContent: 'flex-start' }
-const buttonNonCollapsedSx = {
-  justifyContent: 'flex-start',
-  paddingRight: '30px',
-}
+import { blueGrey } from '@mui/material/colors'
+import AppsBarButton from '../apps-bar-button/AppsBarButton'
+import { commonModules, modules, visibleModules } from '../../constants/dummy'
+import logo from '../../logo-connio-inverse.svg'
+import { useLayoutSettings } from '../../contexts/layout-settings/context'
 
 const AppsBar = () => {
-  const isCollapsed = useBoolean(false)
-  const buttonSx = {
-    ...buttonCommonSx,
-    ...(isCollapsed.value ? buttonCollapsedSx : buttonNonCollapsedSx),
-  }
+  const layoutSettings = useLayoutSettings()
   return (
     <Styled>
-      <div className="collapse-icon">
-        <IconButton onClick={isCollapsed.toggle}>
-          <Icon children="widgets" />
-        </IconButton>
+      <div className="logo-area">
+        {!layoutSettings.isCollapsed.value && (
+          <div className="logo">
+            <img src={logo} alt="Connio" />
+          </div>
+        )}
+        <div className="collapse-icon">
+          <IconButton
+            sx={{ color: blueGrey[50] }}
+            onClick={layoutSettings.isCollapsed.toggle}
+          >
+            <Icon children="widgets" />
+          </IconButton>
+        </div>
+      </div>
+
+      <Divider sx={{ marginY: '16px' }} />
+      <AppsBarButton
+        moduleId={modules.home.id}
+        text={modules.home.title}
+        icon={modules.home.icon}
+        isCollapsed={layoutSettings.isCollapsed.value}
+      />
+      <Divider sx={{ marginY: '16px' }} />
+      <div className="buttons main-buttons">
+        {visibleModules.map((module) => (
+          <AppsBarButton
+            key={module.id}
+            moduleId={module.id}
+
+            text={module.title}
+            icon={module.icon}
+            isCollapsed={layoutSettings.isCollapsed.value}
+          />
+        ))}
       </div>
       <Divider sx={{ marginY: '16px' }} />
-      <Button sx={buttonSx} variant="text" startIcon={<Icon children="home" />}>
-        {!isCollapsed.value && 'HOME'}
-      </Button>
-      {apps.map((app) => (
-        <Button
-          sx={buttonSx}
-          variant="text"
-          startIcon={<Icon children={app.icon} />}
-        >
-          {!isCollapsed.value && app.title}
-        </Button>
-      ))}
-      <Divider sx={{ marginY: '16px' }} />
+      <div className="buttons last-buttons">
+        {commonModules.map((module) => (
+          <AppsBarButton
+            key={module.id}
+            moduleId={module.id}
+            text={module.title}
+            icon={module.icon}
+            isCollapsed={layoutSettings.isCollapsed.value}
+          />
+        ))}
 
-      <Button sx={buttonSx} variant="text" startIcon={<Icon children="store" />}>
-        {!isCollapsed.value && 'Market Place'}
-      </Button>
-      <Button sx={buttonSx} variant="text" startIcon={<Icon children="help" />}>
-        {!isCollapsed.value && 'Documentation'}
-      </Button>
-      <Button sx={buttonSx} variant="text" startIcon={<Icon children="settings" />}>
-        {!isCollapsed.value && 'Settings'}
-      </Button>
-      <Button sx={buttonSx} variant="text" startIcon={<Icon children="headset_mic" />}>
-        {!isCollapsed.value && 'Support'}
-      </Button>
+        <Divider sx={{ marginY: '16px' }} />
+        <AppsBarButton
+            moduleId={module.id}
+          text="Logout"
+          icon="logout"
+          isCollapsed={layoutSettings.isCollapsed.value}
+        />
+      </div>
     </Styled>
   )
 }
