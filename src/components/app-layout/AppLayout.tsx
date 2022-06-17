@@ -4,39 +4,58 @@ import { BaseLayout } from '../base-layout'
 import { Header } from '../header'
 import { LeftNav } from '../left-nav'
 import { AppLayoutProps } from './types'
-import { Breadcrumb, BreadcrumbItem, Page } from './AppLayout.styled'
+import { Page } from './AppLayout.styled'
 import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
-import getModule from '../../helpers/getModule'
 import Icon from '@mui/material/Icon'
 import Link from '@mui/material/Link'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
 const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
   children,
-  moduleId,
+  title,
+  breadcrumb,
+  ...baseLayoutProps
 }) => {
-  const appsBar = <AppsBar />
-  const header = <Header />
-  const leftNav = <LeftNav />
-  const module = getModule(moduleId)
   return (
-    <BaseLayout leftSider={appsBar} header={header} leftNav={leftNav}>
+    <BaseLayout {...baseLayoutProps}>
       <Page>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Breadcrumb>
-              {module?.ancestors?.map((_module, index) => (
-                <BreadcrumbItem key={_module.id}>
-                  <Link href="#" underline="hover" color="inherit">
+          {breadcrumb && (
+            <Grid item xs={12}>
+              <Breadcrumbs aria-label="breadcrumb">
+                {breadcrumb?.slice(0, breadcrumb.length - 1).map((_module) => (
+                  <Link
+                    href="#"
+                    underline="hover"
+                    color="inherit"
+                    sx={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    <Icon
+                      sx={{ mr: 0.5 }}
+                      children={_module.icon}
+                      fontSize="inherit"
+                    />
                     {_module.title}
                   </Link>
-                </BreadcrumbItem>
-              ))}
-            </Breadcrumb>
-          </Grid>
+                ))}
+
+                <Typography
+                  sx={{ display: 'flex', alignItems: 'center' }}
+                  color="text.primary"
+                >
+                  <Icon
+                    sx={{ mr: 0.5 }}
+                    children={breadcrumb.at(-1).icon}
+                    fontSize="inherit"
+                  />
+                  {breadcrumb.at(-1).title}
+                </Typography>
+              </Breadcrumbs>
+            </Grid>
+          )}
           <Grid item xs={12}>
             <Typography variant="h5" component="h5">
-              {module.title}
+              {title}
             </Typography>
           </Grid>
 

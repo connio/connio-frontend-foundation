@@ -1,6 +1,8 @@
 import { ModuleProps, modules } from '../constants/modules'
 
 const getModule = (moduleId: string): ModuleProps => {
+  if (moduleId === '-')
+    return { id: 'divider', title: 'divider', icon: 'divider' }
   const path = moduleId.split('.')
   let result: ModuleProps
   const ancestors: ModuleProps[] = []

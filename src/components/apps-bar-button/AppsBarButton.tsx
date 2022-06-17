@@ -44,7 +44,7 @@ const AppsBarButton: React.FC<AppsBarButtonProps> = ({
         }
         onClick={(e) => {
           onClick?.(e)
-          layoutSettings.setCurrentModule(moduleId)
+          layoutSettings.setCurrentModule(moduleId) // TODO:Router bağlandıktan sonra routerden alınacak.
         }}
         {...buttonProps}
       >

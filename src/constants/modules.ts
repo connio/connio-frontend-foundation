@@ -5,6 +5,7 @@ export type ModuleProps = {
   subitems?: Array<ModuleProps>
   ancestors?:Array<ModuleProps>
 }
+
 export const modules: Array<ModuleProps> = [
   {
     id: 'home',
@@ -92,19 +93,4 @@ export const modules: Array<ModuleProps> = [
     title: 'Support',
     icon: 'headset_mic',
   },
-]
-
-export const visibleModules = [
-  'connectionHubs',
-  'apps',
-  'assets',
-  'systemInsight',
-  'dataOps',
-  'assetDesigner',
-]
-export const commonModules = [
-  'marketPlace',
-  'documentation',
-  'settings',
-  'support',
 ]
