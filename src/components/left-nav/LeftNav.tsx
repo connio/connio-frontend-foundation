@@ -93,11 +93,11 @@ const LeftNav = () => {
     >
       <div className="app-sidebar-content">
         <div className="overflow-wrapper">
-          {module.subModules.map((menu) => {
-            //const menuModule = getModule([module.id, menu.id].join('.'))
+          {module.subModules.map((menu, index) => {
             const modulePath = [module.id, menu.id].join('.')
             return (
               <Button
+                key={menu.id}
                 variant={params.moduleId === modulePath ? 'outlined' : 'text'}
                 onClick={() => navigate('/module/' + modulePath)}
                 sx={buttonSx}

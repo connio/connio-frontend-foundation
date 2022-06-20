@@ -4,10 +4,15 @@ export const Page = styled.div`
   .page-title {
     border: 1px solid black;
   }
+  .breadcrumb {
+    .MuiIcon-root {
+      margin-right: 6px;
+    }
+  }
 `
 export const Breadcrumb = styled.ul`
   display: flex;
-  padding:0px;
+  padding: 0px;
   align-items: center;
 `
 
@@ -21,7 +26,5 @@ export const BreadcrumbItem = styled.li`
     }
   }
   &:not(:first-child) {
-   
   }
-
 `

@@ -30,9 +30,9 @@ const AppsBar: React.FC<AppsBarProps> = ({
 
       <Divider sx={{ marginY: '16px' }} />
       <div className="buttons main-buttons">
-        {topModules.map((module) =>
+        {topModules.map((module, index) =>
           module.id === 'divider' ? (
-            <Divider sx={{ marginY: '16px' }} />
+            <Divider key={index} sx={{ marginY: '16px' }} />
           ) : (
             <AppsBarButton
               key={module.id}
@@ -46,10 +46,10 @@ const AppsBar: React.FC<AppsBarProps> = ({
       </div>
 
       <div className="buttons last-buttons">
-        <Divider  />
-        {bottomModules.map((module) =>
+        <Divider />
+        {bottomModules.map((module, index) =>
           module.id === 'divider' ? (
-            <Divider sx={{ marginY: '16px' }} />
+            <Divider key={index} sx={{ marginY: '16px' }} />
           ) : (
             <AppsBarButton
               key={module.id}
@@ -60,9 +60,19 @@ const AppsBar: React.FC<AppsBarProps> = ({
             />
           )
         )}
-        <Divider sx={{ marginY: '16px' }}/>
-        {isCollapsed ? <span className='version'><br/>v3</span> : 
-        <span className='version'>Connio Cloud Platform<br/>v3.123.123</span>}
+        <Divider sx={{ marginY: '16px' }} />
+        {isCollapsed ? (
+          <span className="version">
+            <br />
+            v3
+          </span>
+        ) : (
+          <span className="version">
+            Connio Cloud Platform
+            <br />
+            v3.123.123
+          </span>
+        )}
       </div>
     </Styled>
   )

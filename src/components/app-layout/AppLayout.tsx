@@ -19,16 +19,16 @@ const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
         <Grid container spacing={2}>
           {breadcrumb && (
             <Grid item xs={12}>
-              <Breadcrumbs aria-label="breadcrumb">
+              <Breadcrumbs aria-label="breadcrumb" className="breadcrumb">
                 {breadcrumb?.slice(0, breadcrumb.length - 1).map((_module) => (
                   <Link
+                    key={_module.id}
                     href="#"
                     underline="hover"
                     color="inherit"
                     sx={{ display: 'flex', alignItems: 'center' }}
                   >
-                    {_module.icon}
-                    <Box sx={{ ml: 0.5 }}>{_module.title}</Box>
+                    {_module.icon} {_module.title}
                   </Link>
                 ))}
 
@@ -36,8 +36,7 @@ const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
                   sx={{ display: 'flex', alignItems: 'center' }}
                   color="text.primary"
                 >
-                  {breadcrumb.at(-1).icon}
-                  <Box sx={{ ml: 0.5 }}>{breadcrumb.at(-1).title}</Box>
+                  {breadcrumb.at(-1).icon} {breadcrumb.at(-1).title}
                 </Typography>
               </Breadcrumbs>
             </Grid>

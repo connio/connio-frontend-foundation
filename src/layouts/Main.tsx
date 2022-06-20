@@ -9,10 +9,7 @@ import { useLayoutSettings } from '../contexts/layout-settings/context'
 import useModule from '../components/hooks/useModule'
 import { useParams } from 'react-router-dom'
 
-export const Main: React.FC<
-  PropsWithChildren<{
-  }>
-> = ({ children }) => {
+export const Main: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const layoutSettings = useLayoutSettings()
   const params = useParams<{ moduleId: string }>()
 
