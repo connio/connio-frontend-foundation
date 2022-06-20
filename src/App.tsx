@@ -1,10 +1,10 @@
 import React from 'react'
-import { AppLayout } from './components/app-layout'
 import { ThemeProvider } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import { lightTheme } from './constants/theme'
 import { LayoutSettingsProvider } from './contexts/layout-settings/context'
-import Home from './pages/Home'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import ModuleRouter from './ModuleRouter'
 
 function App() {
   return (
@@ -16,7 +16,10 @@ function App() {
             color: 'text.primary',
           }}
         >
-            <Home />
+          <Routes>
+            <Route path="/" element={<Navigate to="/module/home" />} />
+            <Route path="/module/:moduleId" element={<ModuleRouter />} />
+          </Routes>
         </Box>
       </LayoutSettingsProvider>
     </ThemeProvider>

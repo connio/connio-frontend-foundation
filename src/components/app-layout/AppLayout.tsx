@@ -1,15 +1,12 @@
 import React, { PropsWithChildren } from 'react'
-import { AppsBar } from '../apps-bar'
 import { BaseLayout } from '../base-layout'
-import { Header } from '../header'
-import { LeftNav } from '../left-nav'
 import { AppLayoutProps } from './types'
 import { Page } from './AppLayout.styled'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import Icon from '@mui/material/Icon'
 import Link from '@mui/material/Link'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
+import Box from '@mui/material/Box'
 const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
   children,
   title,
@@ -30,12 +27,8 @@ const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
                     color="inherit"
                     sx={{ display: 'flex', alignItems: 'center' }}
                   >
-                    <Icon
-                      sx={{ mr: 0.5 }}
-                      children={_module.icon}
-                      fontSize="inherit"
-                    />
-                    {_module.title}
+                    {_module.icon}
+                    <Box sx={{ ml: 0.5 }}>{_module.title}</Box>
                   </Link>
                 ))}
 
@@ -43,12 +36,8 @@ const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
                   sx={{ display: 'flex', alignItems: 'center' }}
                   color="text.primary"
                 >
-                  <Icon
-                    sx={{ mr: 0.5 }}
-                    children={breadcrumb.at(-1).icon}
-                    fontSize="inherit"
-                  />
-                  {breadcrumb.at(-1).title}
+                  {breadcrumb.at(-1).icon}
+                  <Box sx={{ ml: 0.5 }}>{breadcrumb.at(-1).title}</Box>
                 </Typography>
               </Breadcrumbs>
             </Grid>

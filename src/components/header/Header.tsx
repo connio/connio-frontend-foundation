@@ -1,16 +1,28 @@
 import Icon from '@mui/material/Icon'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import React from 'react'
-import { useLayoutSettings } from '../../contexts/layout-settings/context'
-import getModule from '../../helpers/getModule'
+import useModule from '../hooks/useModule'
 import { Styled } from './Header.styled'
+import { useParams } from 'react-router-dom'
 
 const iconButtonSx = {
   color: 'white',
 }
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen()
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen()
+    }
+  }
+}
 const Header = () => {
-  const layoutSettings = useLayoutSettings()
+  const { getModule } = useModule()
+  const params = useParams<{ moduleId: string }>()
+
+  const rootModuleId = params.moduleId?.split('.')[0] || 'home'
 
   return (
     <Styled>
@@ -22,11 +34,14 @@ const Header = () => {
               component="h4"
               sx={{ paddingLeft: '14px' }}
             >
-              {getModule(layoutSettings.currentModule).title}
+              {getModule(rootModuleId).title}
             </Typography>
           </span>
         </div>
         <div className="right-controls">
+          <IconButton sx={iconButtonSx} onClick={toggleFullScreen}>
+            <Icon children="fullscreen" />
+          </IconButton>
           <IconButton sx={iconButtonSx}>
             <Icon children="notifications" />
           </IconButton>

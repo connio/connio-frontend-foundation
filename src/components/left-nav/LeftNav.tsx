@@ -1,11 +1,12 @@
+import { Box } from '@mui/material'
 import Button from '@mui/material/Button'
 import Fab from '@mui/material/Fab'
 import Icon from '@mui/material/Icon'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { modules } from '../../constants/modules'
 import { useLayoutSettings } from '../../contexts/layout-settings/context'
-import getModule from '../../helpers/getModule'
+import useModule from '../hooks/useModule'
 import { Styled } from './LeftNav.styled'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const buttonSx = {
   justifyContent: 'flex-start',
@@ -16,9 +17,14 @@ const buttonSx = {
 const collapsedSize = 15
 const LeftNav = () => {
   const layoutSettings = useLayoutSettings()
+  const params = useParams<{ moduleId: string }>()
+  const navigate = useNavigate()
+  const { getModule } = useModule()
   const isCollapsed = layoutSettings.sidebarWidth === collapsedSize
   const sidebarRef = useRef<any>(null)
   const [isResizing, setIsResizing] = useState(false)
+
+  const rootModuleId = params.moduleId?.split('.')[0] || 'home'
 
   const startResizing = useCallback((mouseDownEvent: any) => {
     setIsResizing(true)
@@ -73,8 +79,8 @@ const LeftNav = () => {
       setTimeout(() => layoutSettings.setSidebarWidth(collapsedSize), 200)
     }
   }, [layoutSettings])
-  const module = getModule(layoutSettings.currentModule)
-  return module.subitems?.length ? (
+  const module = getModule(rootModuleId)
+  return module.subModules?.length ? (
     <Styled
       ref={sidebarRef}
       style={{ width: layoutSettings.sidebarWidth }}
@@ -87,21 +93,15 @@ const LeftNav = () => {
     >
       <div className="app-sidebar-content">
         <div className="overflow-wrapper">
-          {module.subitems.map((menu) => {
+          {module.subModules.map((menu) => {
             //const menuModule = getModule([module.id, menu.id].join('.'))
             const modulePath = [module.id, menu.id].join('.')
             return (
               <Button
-                variant={
-                  window.location.hash.includes(modulePath) //TODO: router bağlandıktan sonra router ile kontrol edilecek
-                    ? 'outlined'
-                    : 'text'
-                }
-                href={`#${modulePath}`}
+                variant={params.moduleId === modulePath ? 'outlined' : 'text'}
+                onClick={() => navigate('/module/' + modulePath)}
                 sx={buttonSx}
-                startIcon={
-                  <Icon sx={{ marginRight: '12px' }}>{menu.icon}</Icon>
-                }
+                startIcon={<Box sx={{ marginRight: '12px' }}>{menu.icon}</Box>}
               >
                 {menu.title}
               </Button>
@@ -110,20 +110,16 @@ const LeftNav = () => {
         </div>
       </div>
 
-      {!isCollapsed && <div
-        className="app-sidebar-resizer"
-        onMouseDown={startResizing}
-        onClick={restoreResizing}
-      />}
+      {!isCollapsed && (
+        <div
+          className="app-sidebar-resizer"
+          onMouseDown={startResizing}
+          onClick={restoreResizing}
+        />
+      )}
       <div className="app-sidebar-toggle" onClick={toggleResizing}>
         <Fab size="small" color="primary" aria-label="add">
-          <Icon
-            children={
-              isCollapsed
-                ? 'chevron_right'
-                : 'chevron_left'
-            }
-          />
+          <Icon children={isCollapsed ? 'chevron_right' : 'chevron_left'} />
         </Fab>
       </div>
     </Styled>

@@ -29,5 +29,8 @@ export const Styled = styled.div`
     &.main-buttons {
       flex-grow: 1;
     }
+    .version{
+      text-align: center;
+    }
   }
 `

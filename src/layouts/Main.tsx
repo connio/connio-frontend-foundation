@@ -3,18 +3,23 @@ import { AppLayout } from '../components/app-layout'
 import { AppsBar } from '../components/apps-bar'
 import { Header } from '../components/header'
 import { LeftNav } from '../components/left-nav'
-import getModule from '../helpers/getModule'
 
 import logo from '../logo-connio-inverse.svg'
 import { useLayoutSettings } from '../contexts/layout-settings/context'
+import useModule from '../components/hooks/useModule'
+import { useParams } from 'react-router-dom'
 
-const Main: React.FC<
+export const Main: React.FC<
   PropsWithChildren<{
-    moduleId: string
   }>
-> = ({ children, moduleId }) => {
+> = ({ children }) => {
   const layoutSettings = useLayoutSettings()
-  const module = getModule(moduleId)
+  const params = useParams<{ moduleId: string }>()
+
+  const { getModule } = useModule()
+  const module = params.moduleId
+    ? getModule(params.moduleId)
+    : getModule('home')
 
   return (
     <AppLayout
@@ -52,5 +57,3 @@ const Main: React.FC<
     </AppLayout>
   )
 }
-
-export default Main

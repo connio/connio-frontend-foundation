@@ -1,10 +1,9 @@
-import Button, { ButtonProps } from '@mui/material/Button'
+import Button from '@mui/material/Button'
 import blueGrey from '@mui/material/colors/blueGrey'
-import Icon from '@mui/material/Icon'
 import Tooltip from '@mui/material/Tooltip'
 import React from 'react'
-import { useLayoutSettings } from '../../contexts/layout-settings/context'
 import { AppsBarButtonProps } from './types'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const buttonCommonSx = {
   height: '50px',
@@ -26,8 +25,9 @@ const AppsBarButton: React.FC<AppsBarButtonProps> = ({
   onClick,
   ...buttonProps
 }) => {
-  const layoutSettings = useLayoutSettings()
-
+  const params = useParams<{ moduleId: string }>()
+  const navigate = useNavigate()
+  const rootModuleId = params.moduleId?.split('.')[0] || 'home'
   const buttonSx = {
     ...buttonCommonSx,
     ...(isCollapsed ? buttonCollapsedSx : buttonNonCollapsedSx),
@@ -36,15 +36,11 @@ const AppsBarButton: React.FC<AppsBarButtonProps> = ({
     <Tooltip title={text} placement="right" disableHoverListener={!isCollapsed}>
       <Button
         sx={buttonSx}
-        variant={
-          layoutSettings.currentModule === moduleId ? 'outlined' : 'text' // TODO:Router bağlandıktan sonra routerden alınacak.
-        }
-        startIcon={
-          <Icon sx={{ marginRight: isCollapsed ? '0px' : '20px' }}>{icon}</Icon>
-        }
+        variant={rootModuleId === moduleId ? 'outlined' : 'text'}
+        startIcon={icon}
         onClick={(e) => {
           onClick?.(e)
-          layoutSettings.setCurrentModule(moduleId) // TODO:Router bağlandıktan sonra routerden alınacak.
+          navigate('/module/' + moduleId)
         }}
         {...buttonProps}
       >
