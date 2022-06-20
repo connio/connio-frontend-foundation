@@ -6,13 +6,15 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Box from '@mui/material/Box'
+import { useNavigate } from 'react-router-dom'
+
 const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
   children,
   title,
   breadcrumb,
   ...baseLayoutProps
 }) => {
+  const navigate = useNavigate()
   return (
     <BaseLayout {...baseLayoutProps}>
       <Page>
@@ -24,6 +26,7 @@ const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
                   <Link
                     key={_module.id}
                     href="#"
+                    onClick={() => navigate(`/module/${_module.id}`)}
                     underline="hover"
                     color="inherit"
                     sx={{ display: 'flex', alignItems: 'center' }}
